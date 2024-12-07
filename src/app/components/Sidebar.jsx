@@ -1,3 +1,7 @@
+"use client";
+
+import useSWR from "swr";
+
 import React from "react";
 import { IoLibrarySharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
@@ -10,7 +14,14 @@ import { BsPinAngleFill } from "react-icons/bs";
 import { HiMiniMusicalNote } from "react-icons/hi2";
 import { TfiMenuAlt } from "react-icons/tfi";
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
 const Sidebar = () => {
+  const { data, error, isLoading } = useSWR("/api/related-artist", fetcher);
+
+  console.log("first", data?.artists);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching related artists.</p>;
   return (
     <div
       className=" col-span-3  text-white p-4 mt-2 h-screen overflow-y-scroll "
@@ -77,125 +88,22 @@ const Sidebar = () => {
       </div>
 
       {/* list  */}
-      <div className="">
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
+      <div className=" ">
+        {data?.artists.map((data, index) => (
+          <div key={index} className=" mt-4 flex gap-4">
+            <Image
+              alt="artist"
+              src={data.images[0]?.url || "/default-image.webp"}
+              width={50}
+              height={50}
+              style={{ borderRadius: "100%" }}
+            />
+            <div className="">
+              <p className=" font-medium">{data.name}</p>
+              <p className=" font-thin text-sm text-gray-400">Artist</p>
+            </div>
           </div>
-        </div>
-
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
-        <div className=" mt-4 flex gap-4">
-          <Image
-            alt="artist"
-            src="/adele.webp"
-            width={50}
-            height={50}
-            style={{ borderRadius: "100%" }}
-          />
-          <div className="">
-            <p className=" font-medium">Adele</p>
-            <p className=" font-thin text-sm text-gray-400">Artist</p>
-          </div>
-        </div>
+        ))}
       </div>
       {/* end list */}
     </div>

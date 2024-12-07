@@ -79,7 +79,7 @@ const Footer = () => {
 
       <div className=" col-span-4  flex items-center justify-center gap-3 ">
         <AiOutlinePlaySquare style={{ color: "gray" }} />
-        <LuMic2 style={{ color: "gray" }} />
+        {/* <LuMic2 style={{ color: "gray" }} /> */}
         <HiMiniQueueList style={{ color: "gray" }} />
         <HiOutlineDeviceMobile style={{ color: "gray" }} />
         <HiOutlineSpeakerWave style={{ color: "gray" }} />

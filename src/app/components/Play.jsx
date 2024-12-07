@@ -6,7 +6,7 @@ import { BsThreeDots } from "react-icons/bs";
 
 const Play = () => {
   return (
-    <div className=" mt-2 ">
+    <div className=" ">
       <div className=" relative w-[1050px] h-[400px] rounded-md p-2 ml-2">
         <Image
           alt="banner"
